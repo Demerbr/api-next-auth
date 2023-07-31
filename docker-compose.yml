@@ -1,0 +1,29 @@
+version: '3'
+
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+  auth-pg:
+    image: 'bitnami/postgresql'
+    networks:
+      - app-tier
+    ports: 
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=auth-pg
+  
+
+  app:
+    build: .
+    container_name: auth
+    ports: 
+      - 8000:8000
+    volumes:
+      - .:/usr/app
+    networks:
+      - app-tier
+

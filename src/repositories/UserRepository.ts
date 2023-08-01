@@ -1,10 +1,15 @@
 import { GetResult } from "@prisma/client/runtime/library";
 import { IUserCreate } from "../interfaces/IUserCreate";
-import { User } from "@prisma/client";
 import prisma from "../database";
 import { hash } from "bcrypt";
 
 
+type User = {
+    id: number;
+    name: string;
+    email: string;
+    password: string;
+}
 
 class UserRepository implements IUserCreate{
     public async create(name: string, email: string, password: string): Promise<User>{ 
